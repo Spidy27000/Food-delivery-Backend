@@ -1,0 +1,19 @@
+Items : Model
+  - _id : ObjectId
+  - name : string
+  - description : string
+  - price : int
+  - rating : float
+  - image_uri : string
+
+User : Model
+ - _id : ObjectId
+ - username : string 
+ - email : string 
+ - password : string
+
+Cart : Model 
+ - _id : ObjectId
+ - UserId : ObjectId
+ - ItemId : ObjectId
+
