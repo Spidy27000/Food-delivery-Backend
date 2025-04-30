@@ -3,8 +3,9 @@ Items : Model
   - name : string
   - description : string
   - price : int
-  - rating : float
   - image_uri : string
+  - categroy : string[]
+  - is_veg : boolean
 
 User : Model
  - _id : ObjectId
@@ -14,6 +15,10 @@ User : Model
 
 Cart : Model 
  - _id : ObjectId
- - UserId : ObjectId
- - ItemId : ObjectId
+ - UserId : ObjectId (refers to User Table)
+ - Items : [{
+   - itemId : ObjectId (refers to Item Table)
+   - quantity : number
+ }]
+ - is_ordered : boolean
 

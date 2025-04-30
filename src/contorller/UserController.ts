@@ -31,7 +31,7 @@ export const getUser = async (req: Request, res: Response): Promise<void> => {
     status: "Success",
     data: {
       username: user?.username,
-      email: user?.email
+      email: user?.email,
     }
   });
 }
@@ -74,8 +74,9 @@ export const addUser = async (req: Request, res: Response): Promise<void> => {
     });
     res.end();
   }
-  const doesExists = await User.where("email", email).exec();
-  if (doesExists) {
+  const doesExists = await User.find({email : email}).exec();
+  console.log(doesExists);
+  if (doesExists.length != 0) {
     res.json({
       status: "Failed",
       error: "Email Already Exists",
@@ -87,9 +88,7 @@ export const addUser = async (req: Request, res: Response): Promise<void> => {
   await user.save();
   res.json({
     status: "Success",
-    data: {
-      id: user._id
-    }
+    userId: user._id
   })
   res.end();
 }

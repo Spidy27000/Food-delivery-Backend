@@ -3,6 +3,8 @@ import mongoose from "mongoose";
 import cors from "cors";
 import "dotenv/config"
 import { userRouter } from "./view/UserView";
+import { itemRouter } from "./view/ItemView";
+import { cartRouter } from "./view/CartView";
 
 const app = express()
 const PORT = process.env.PORT || 5000;
@@ -19,6 +21,8 @@ app.use((_req: Request, res: Response, next: NextFunction) => {
 app.use(express.json())
 
 app.use(userRouter);
+app.use(itemRouter);
+app.use(cartRouter);
 
 app.listen(PORT, async () => {
   if (process.env.MONGO_URI != undefined) {
