@@ -29,10 +29,9 @@ export const getUser = async (req: Request, res: Response): Promise<void> => {
   }
   res.json({
     status: "Success",
-    data: {
-      username: user?.username,
-      email: user?.email,
-    }
+    username: user?.username,
+    email: user?.email,
+    
   });
 }
 
@@ -162,4 +161,34 @@ export const updateUser = async (req: Request, res: Response): Promise<void> => 
     status : "Success"
   });
   res.end();
+}
+
+// login for the user
+// user/login
+export const loginUser = async (req: Request, res: Response): Promise<void> => {
+  const { email, password } = req.body;
+  // check if the email exists in the database
+  const user = await User.findOne({ email: email }).exec();
+  if (user == null) {
+    res.json({
+      status: "Failed",
+      error: "Email is not registered",
+    });
+    res.end();
+    return;
+  }
+  // check if the password is correct
+  if (user.password != password) {
+    res.json({
+      status: "Failed",
+      error: "Password is incorrect",
+    });
+    res.end();
+    return;
+  }
+  res.json({
+    status: "Success",
+    userId: user._id,
+    username: user.username,
+  });
 }
